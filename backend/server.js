@@ -12,20 +12,24 @@ let port = process.env.PORT || 8080;
 const connectDB = require("./config/databaseConnect.js");
 
 //database model
-const note = require("./models/note.js");
+const note = require("./models/note.js"); //note model require
 
 //routes require
 const noteRoutes = require("./routes/noteRoutes.js");
 
-app.listen(port, () => {
-  console.log("SERVER IS LISTENING ON PORT 8080");
-});
-
-//app.use is middleware
+// Parses incoming requests with JSON payloads
+app.use(express.json());
+// Built-in URL-encoded parser
+app.use(express.urlencoded({ extended: true }));
+// app.use is middleware
 app.use((req, res, next) => {
   console.log("SERVER REQUEST SENT");
   //   res.send("HELLO USER.. RESPONSE SENT SUCCESSFULLY");
   next();
+});
+
+app.listen(port, () => {
+  console.log("SERVER IS LISTENING ON PORT 8080");
 });
 
 connectDB();
