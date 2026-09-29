@@ -1,6 +1,14 @@
+//express require
 const express = require("express");
 const app = express();
 
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, ".env") }); //dotenv require
+
+//database config connection
+const connectDB = require("./config/databaseConnect.js");
+
+//routes require
 const noteRoutes = require("./routes/noteRoutes.js");
 
 let port = 8080;
@@ -15,5 +23,7 @@ app.use((req, res, next) => {
   //   res.send("HELLO USER.. RESPONSE SENT SUCCESSFULLY");
   next();
 });
+
+connectDB();
 
 app.use("/note", noteRoutes);
