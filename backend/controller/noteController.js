@@ -9,6 +9,18 @@ module.exports.getNotes = async (req, res) => {
   }
 };
 
+module.exports.viewNote = async (req, res) => {
+  try {
+    const fetchNote = await note.findById(req.params.id);
+    if (!fetchNote) {
+      res.json({ error: "Note not found" });
+    }
+    res.json(fetchNote);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports.postNotes = async (req, res) => {
   try {
     const { title, content } = req.body;

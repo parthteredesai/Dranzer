@@ -8,6 +8,9 @@ const noteController = require("../controller/noteController.js");
 //get notes
 router.get("/", noteController.getNotes);
 
+//view note
+router.get("/:id", noteController.viewNote);
+
 //post notes
 router.post("/", noteController.postNotes);
 
