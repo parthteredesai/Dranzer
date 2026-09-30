@@ -20,10 +20,32 @@ module.exports.postNotes = async (req, res) => {
   }
 };
 
-module.exports.updateNotes = (req, res) => {
-  res.json({ message: "post updates" });
+module.exports.updateNotes = async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    const updatedNote = await note.findByIdAndUpdate(req.params.id, {
+      title: title,
+      content: content,
+    });
+
+    if (!updatedNote) {
+      res.json({ messaage: "no data found" });
+    }
+
+    res.json({ updatedNote }, "Note updated successfully");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-module.exports.deleteNotes = (req, res) => {
-  res.json({ message: "post deleted" });
+module.exports.deleteNotes = async (req, res) => {
+  try {
+    const deleteNote = await note.findByIdAndDelete(req.params.id);
+    if (!deleteNote) {
+      res.json({ message: "data not found" });
+    }
+    res.json({ deleteNote }, "Note deleted successfully");
+  } catch (error) {
+    console.log(error);
+  }
 };
