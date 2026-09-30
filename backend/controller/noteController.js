@@ -2,7 +2,7 @@ const note = require("../models/note.js"); //note db model require
 
 module.exports.getNotes = async (req, res) => {
   try {
-    const noteData = await note.find();
+    const noteData = await note.find().sort({ _id: -1 });
     res.json(noteData);
   } catch (error) {
     console.log(error);
